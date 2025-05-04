@@ -1,3 +1,4 @@
+import 'package:forecast/configs/local_storage/local_storage.dart';
 import 'package:forecast/data/data_sources/local_data.dart';
 import 'package:forecast/data/data_sources/remote_data.dart';
 import 'package:forecast/domain/repositories/mock_repository.dart';
@@ -15,10 +16,10 @@ class DI {
 
   final getIt = GetIt.instance;
 
-  void setUpLocator() {
+  Future<void> setUpLocator() async {
     // repos & blocs
     getIt.registerLazySingleton<MockRepository>(
-      () => MockRepositoryImpl(),
+      () => MockRepositoryImpl(localData: getIt(), remoteData: getIt()),
     );
 
     // data
@@ -27,7 +28,14 @@ class DI {
     );
 
     getIt.registerLazySingleton<LocalData>(
-      () => LocalDataImpl(),
+      () => LocalDataImpl(localStorage: getIt()),
+    );
+
+    // tools
+    final localStorage = LocalStorage();
+    await localStorage.init();
+    getIt.registerLazySingleton<LocalStorage>(
+      () => localStorage,
     );
   }
 }

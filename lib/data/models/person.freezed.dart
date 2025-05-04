@@ -20,9 +20,13 @@ Person _$PersonFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Person {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get firstName => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get lastName => throw _privateConstructorUsedError;
+  @HiveField(3)
   int? get age => throw _privateConstructorUsedError;
 
   /// Serializes this Person to a JSON map.
@@ -39,7 +43,11 @@ abstract class $PersonCopyWith<$Res> {
   factory $PersonCopyWith(Person value, $Res Function(Person) then) =
       _$PersonCopyWithImpl<$Res, Person>;
   @useResult
-  $Res call({int id, String? firstName, String? lastName, int? age});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String? firstName,
+      @HiveField(2) String? lastName,
+      @HiveField(3) int? age});
 }
 
 /// @nodoc
@@ -90,7 +98,11 @@ abstract class _$$PersonImplCopyWith<$Res> implements $PersonCopyWith<$Res> {
       __$$PersonImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String? firstName, String? lastName, int? age});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String? firstName,
+      @HiveField(2) String? lastName,
+      @HiveField(3) int? age});
 }
 
 /// @nodoc
@@ -135,7 +147,11 @@ class __$$PersonImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PersonImpl extends _Person {
-  const _$PersonImpl({this.id = 0, this.firstName, this.lastName, this.age})
+  const _$PersonImpl(
+      {@HiveField(0) this.id = 0,
+      @HiveField(1) this.firstName,
+      @HiveField(2) this.lastName,
+      @HiveField(3) this.age})
       : super._();
 
   factory _$PersonImpl.fromJson(Map<String, dynamic> json) =>
@@ -143,12 +159,16 @@ class _$PersonImpl extends _Person {
 
   @override
   @JsonKey()
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final String? firstName;
   @override
+  @HiveField(2)
   final String? lastName;
   @override
+  @HiveField(3)
   final int? age;
 
   @override
@@ -191,21 +211,25 @@ class _$PersonImpl extends _Person {
 
 abstract class _Person extends Person {
   const factory _Person(
-      {final int id,
-      final String? firstName,
-      final String? lastName,
-      final int? age}) = _$PersonImpl;
+      {@HiveField(0) final int id,
+      @HiveField(1) final String? firstName,
+      @HiveField(2) final String? lastName,
+      @HiveField(3) final int? age}) = _$PersonImpl;
   const _Person._() : super._();
 
   factory _Person.fromJson(Map<String, dynamic> json) = _$PersonImpl.fromJson;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   String? get firstName;
   @override
+  @HiveField(2)
   String? get lastName;
   @override
+  @HiveField(3)
   int? get age;
 
   /// Create a copy of Person
