@@ -1,19 +1,11 @@
-import 'package:forecast/data/models/person.dart';
+part of 'mock_bloc.dart';
 
-sealed class MockState {}
-
-class MockInitial extends MockState {}
-
-class MockLoading extends MockState {}
-
-class MockLoaded extends MockState {
-  final Person person;
-
-  MockLoaded(this.person);
-}
-
-class MockError extends MockState {
-  final String message;
-
-  MockError(this.message);
+@freezed
+class MockState with _$MockState {
+  const factory MockState({
+    Person? person,
+    @Default(false) bool? isLoading,
+    @Default(null) String? error,
+    @Default(null) String? message,
+  }) = _MockState;
 }

@@ -1,28 +1,40 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forecast/domain/repositories/mock_repository.dart';
-import 'mock_event.dart';
-import 'mock_state.dart';
+import 'package:forecast/data/models/person.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'mock_event.dart';
+part 'mock_state.dart';
+part 'mock_bloc.freezed.dart';
 
 class MockBloc extends Bloc<MockEvent, MockState> {
   final MockRepository _mockRepository;
 
   MockBloc({required MockRepository mockRepository})
       : _mockRepository = mockRepository,
-        super(MockInitial()) {
-    on<GetMockData>(_onGetMockData);
-    on<GetLocalPerson>(_onGetLocalPerson);
+        super(const MockState()) {
+    on<_GetMock>(_onGetMock);
   }
 
-  Future<void> _onGetMockData(
-      GetMockData event, Emitter<MockState> emit) async {
-    emit(MockLoading());
+  Future<void> _onGetMock(_GetMock event, Emitter<MockState> emit) async {
+    debugPrint('MockBloc: _onGetMock');
+
+    emit(state.copyWith(isLoading: true));
     final person = await _mockRepository.getData();
-    emit(MockLoaded(person));
+    emit(state.copyWith(
+      person: person,
+      isLoading: false,
+      message: 'Lấy dữ liệu thành công',
+    ));
   }
 
-  void _onGetLocalPerson(GetLocalPerson event, Emitter<MockState> emit) {
-    emit(MockLoading());
-    final person = _mockRepository.getPersonFromStorage();
-    emit(MockLoaded(person));
+  Future<void> _onSaveUser(_SaveUser event, Emitter<MockState> emit) async {
+    debugPrint('MockBloc: _onSaveUser');
+    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(
+      isLoading: false,
+      message: 'Lưu user thành công',
+    ));
   }
 }

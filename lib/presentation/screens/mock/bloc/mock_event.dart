@@ -1,5 +1,7 @@
-sealed class MockEvent {}
+part of 'mock_bloc.dart';
 
-class GetMockData extends MockEvent {}
-
-class GetLocalPerson extends MockEvent {}
+@freezed
+class MockEvent with _$MockEvent {
+  const factory MockEvent.getMock() = _GetMock;
+  const factory MockEvent.saveUser(Person person) = _SaveUser;
+}
