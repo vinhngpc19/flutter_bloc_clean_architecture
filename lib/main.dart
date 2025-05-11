@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forecast/configs/di/di.dart';
-import 'package:forecast/domain/repositories/mock_repository.dart';
 import 'package:forecast/presentation/screens/mock/bloc/mock_bloc.dart';
 import 'package:forecast/presentation/screens/mock/mock_screen.dart';
 

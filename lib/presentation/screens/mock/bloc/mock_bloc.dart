@@ -14,12 +14,22 @@ class MockBloc extends Bloc<MockEvent, MockState> {
   MockBloc({required MockRepository mockRepository})
       : _mockRepository = mockRepository,
         super(const MockState()) {
-    on<_GetMock>(_onGetMock);
+    on<MockEvent>((event, emit) async {
+      await event.map(
+        getMock: (event) => _onGetMock(event, emit),
+        saveUser: (event) => _onSaveUser(event, emit),
+      );
+    });
+
+    _initMock();
+  }
+
+  void _initMock() {
+    add(const MockEvent.getMock());
   }
 
   Future<void> _onGetMock(_GetMock event, Emitter<MockState> emit) async {
     debugPrint('MockBloc: _onGetMock');
-
     emit(state.copyWith(isLoading: true));
     final person = await _mockRepository.getData();
     emit(state.copyWith(
