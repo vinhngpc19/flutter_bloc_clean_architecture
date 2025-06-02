@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forecast/presentation/screens/mock/bloc/mock_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class MockScreen extends StatelessWidget {
-  const MockScreen({super.key});
+  const MockScreen({super.key, required this.navigationShell});
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {

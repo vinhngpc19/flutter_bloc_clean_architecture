@@ -6,19 +6,18 @@ abstract class LocalData {
 
   Person getLocalPerson();
 
-  Future<void> deletePerson(String id);
+  Future<void> deletePerson();
 }
 
 class LocalDataImpl extends LocalData {
   final LocalStorage _localStorage;
-  static const String personKey = 'person';
 
   LocalDataImpl({required LocalStorage localStorage})
       : _localStorage = localStorage;
 
   @override
   Person getLocalPerson() {
-    return _localStorage.personBox.get(personKey) ?? const Person();
+    return _localStorage.personBox.getAt(0) ?? const Person();
   }
 
   @override
@@ -27,7 +26,7 @@ class LocalDataImpl extends LocalData {
   }
 
   @override
-  Future<void> deletePerson(String id) async {
-    await _localStorage.personBox.delete(id);
+  Future<void> deletePerson() async {
+    await _localStorage.personBox.deleteAt(0);
   }
 }

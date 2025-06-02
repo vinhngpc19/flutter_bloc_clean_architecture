@@ -42,6 +42,7 @@ class MockBloc extends Bloc<MockEvent, MockState> {
   Future<void> _onSaveUser(_SaveUser event, Emitter<MockState> emit) async {
     debugPrint('MockBloc: _onSaveUser');
     emit(state.copyWith(isLoading: true));
+    // save user
     emit(state.copyWith(
       isLoading: false,
       message: 'Lưu user thành công',

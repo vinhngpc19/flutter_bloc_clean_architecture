@@ -36,7 +36,7 @@ class DI {
       () => LocalDataImpl(localStorage: getIt()),
     );
 
-    // tools
+    // services
     final localStorage = LocalStorage();
     await localStorage.init();
     getIt.registerLazySingleton<LocalStorage>(
