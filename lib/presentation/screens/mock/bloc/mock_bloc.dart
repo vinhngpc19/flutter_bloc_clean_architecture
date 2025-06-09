@@ -15,10 +15,12 @@ class MockBloc extends Bloc<MockEvent, MockState> {
       : _mockRepository = mockRepository,
         super(const MockState()) {
     on<MockEvent>((event, emit) async {
-      await event.map(
-        getMock: (event) => _onGetMock(event, emit),
-        saveUser: (event) => _onSaveUser(event, emit),
-      );
+      switch (event) {
+        case _GetMock():
+          await _onGetMock(event, emit);
+        case _SaveUser():
+          await _onSaveUser(event, emit);
+      }
     });
 
     _initMock();
@@ -30,21 +32,22 @@ class MockBloc extends Bloc<MockEvent, MockState> {
 
   Future<void> _onGetMock(_GetMock event, Emitter<MockState> emit) async {
     debugPrint('MockBloc: _onGetMock');
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(status: MockStatus.loading));
+    await Future.delayed(const Duration(seconds: 2));
     final person = await _mockRepository.getData();
     emit(state.copyWith(
       person: person,
-      isLoading: false,
+      status: MockStatus.success,
       message: 'Lấy dữ liệu thành công',
     ));
   }
 
   Future<void> _onSaveUser(_SaveUser event, Emitter<MockState> emit) async {
     debugPrint('MockBloc: _onSaveUser');
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(status: MockStatus.loading));
     // save user
     emit(state.copyWith(
-      isLoading: false,
+      status: MockStatus.success,
       message: 'Lưu user thành công',
     ));
   }

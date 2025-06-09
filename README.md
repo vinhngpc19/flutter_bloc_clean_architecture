@@ -3,8 +3,8 @@
 A new Flutter project.
 
 ## Flutter Version
-- Flutter 3.24.3 (stable channel)
-- Dart 3.5.3
+- Flutter 3.27.0 (stable channel)
+- Dart 3.6.0
 - DevTools 2.37.3
 
 ## Getting Started

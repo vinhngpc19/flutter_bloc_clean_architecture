@@ -6,7 +6,7 @@ part 'person.g.dart';
 
 @freezed
 @HiveType(typeId: 0)
-class Person with _$Person {
+abstract class Person with _$Person {
   const Person._();
 
   const factory Person({

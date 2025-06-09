@@ -19,12 +19,13 @@ class DI {
 
   Future<void> setUpLocator() async {
     // repos & blocs
-    getIt.registerLazySingleton<MockBloc>(
-      () => MockBloc(mockRepository: getIt()),
+    getIt.registerFactory<MockBloc>(
+      () => MockBloc(mockRepository: getIt<MockRepository>()),
     );
 
     getIt.registerLazySingleton<MockRepository>(
-      () => MockRepositoryImpl(localData: getIt(), remoteData: getIt()),
+      () => MockRepositoryImpl(
+          localData: getIt<LocalData>(), remoteData: getIt<RemoteData>()),
     );
 
     // data
@@ -33,7 +34,7 @@ class DI {
     );
 
     getIt.registerLazySingleton<LocalData>(
-      () => LocalDataImpl(localStorage: getIt()),
+      () => LocalDataImpl(localStorage: getIt<LocalStorage>()),
     );
 
     // services

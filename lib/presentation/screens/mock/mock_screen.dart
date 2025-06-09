@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forecast/presentation/screens/mock/bloc/mock_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class MockScreen extends StatelessWidget {
-  const MockScreen({super.key, required this.navigationShell});
-  final StatefulNavigationShell navigationShell;
+  const MockScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +13,13 @@ class MockScreen extends StatelessWidget {
       ),
       body: BlocBuilder<MockBloc, MockState>(
         builder: (context, state) {
-          if (state.isLoading == true) {
+          if (state.status == MockStatus.loading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          if (state.error != null) {
+          if (state.status == MockStatus.error) {
             return Center(
               child: Text(
                 state.error!,

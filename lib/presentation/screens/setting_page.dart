@@ -20,8 +20,7 @@ class SettingsPage extends StatelessWidget {
             const SizedBox(height: 20),
             FilledButton(
               onPressed: () => context.push(
-                AppRouter.profilePage,
-                extra: user,
+                '${AppRouter.settingsPage}${AppRouter.mockPage}',
               ),
               child: const Text('View Profile Page'),
             ),

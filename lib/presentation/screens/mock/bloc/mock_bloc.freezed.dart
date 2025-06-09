@@ -97,12 +97,18 @@ class __$$GetMockImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GetMockImpl implements _GetMock {
+class _$GetMockImpl with DiagnosticableTreeMixin implements _GetMock {
   const _$GetMockImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MockEvent.getMock()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'MockEvent.getMock'));
   }
 
   @override
@@ -228,15 +234,23 @@ class __$$SaveUserImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SaveUserImpl implements _SaveUser {
+class _$SaveUserImpl with DiagnosticableTreeMixin implements _SaveUser {
   const _$SaveUserImpl(this.person);
 
   @override
   final Person person;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'MockEvent.saveUser(person: $person)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MockEvent.saveUser'))
+      ..add(DiagnosticsProperty('person', person));
   }
 
   @override
@@ -336,7 +350,7 @@ abstract class _SaveUser implements MockEvent {
 /// @nodoc
 mixin _$MockState {
   Person? get person => throw _privateConstructorUsedError;
-  bool? get isLoading => throw _privateConstructorUsedError;
+  MockStatus get status => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
@@ -352,7 +366,8 @@ abstract class $MockStateCopyWith<$Res> {
   factory $MockStateCopyWith(MockState value, $Res Function(MockState) then) =
       _$MockStateCopyWithImpl<$Res, MockState>;
   @useResult
-  $Res call({Person? person, bool? isLoading, String? error, String? message});
+  $Res call(
+      {Person? person, MockStatus status, String? error, String? message});
 
   $PersonCopyWith<$Res>? get person;
 }
@@ -373,7 +388,7 @@ class _$MockStateCopyWithImpl<$Res, $Val extends MockState>
   @override
   $Res call({
     Object? person = freezed,
-    Object? isLoading = freezed,
+    Object? status = null,
     Object? error = freezed,
     Object? message = freezed,
   }) {
@@ -382,10 +397,10 @@ class _$MockStateCopyWithImpl<$Res, $Val extends MockState>
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
               as Person?,
-      isLoading: freezed == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as MockStatus,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -420,7 +435,8 @@ abstract class _$$MockStateImplCopyWith<$Res>
       __$$MockStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Person? person, bool? isLoading, String? error, String? message});
+  $Res call(
+      {Person? person, MockStatus status, String? error, String? message});
 
   @override
   $PersonCopyWith<$Res>? get person;
@@ -440,7 +456,7 @@ class __$$MockStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? person = freezed,
-    Object? isLoading = freezed,
+    Object? status = null,
     Object? error = freezed,
     Object? message = freezed,
   }) {
@@ -449,10 +465,10 @@ class __$$MockStateImplCopyWithImpl<$Res>
           ? _value.person
           : person // ignore: cast_nullable_to_non_nullable
               as Person?,
-      isLoading: freezed == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as MockStatus,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -467,10 +483,10 @@ class __$$MockStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MockStateImpl implements _MockState {
+class _$MockStateImpl with DiagnosticableTreeMixin implements _MockState {
   const _$MockStateImpl(
       {this.person,
-      this.isLoading = false,
+      this.status = MockStatus.initial,
       this.error = null,
       this.message = null});
 
@@ -478,7 +494,7 @@ class _$MockStateImpl implements _MockState {
   final Person? person;
   @override
   @JsonKey()
-  final bool? isLoading;
+  final MockStatus status;
   @override
   @JsonKey()
   final String? error;
@@ -487,8 +503,19 @@ class _$MockStateImpl implements _MockState {
   final String? message;
 
   @override
-  String toString() {
-    return 'MockState(person: $person, isLoading: $isLoading, error: $error, message: $message)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'MockState(person: $person, status: $status, error: $error, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MockState'))
+      ..add(DiagnosticsProperty('person', person))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('error', error))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override
@@ -497,15 +524,13 @@ class _$MockStateImpl implements _MockState {
         (other.runtimeType == runtimeType &&
             other is _$MockStateImpl &&
             (identical(other.person, person) || other.person == person) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, person, isLoading, error, message);
+  int get hashCode => Object.hash(runtimeType, person, status, error, message);
 
   /// Create a copy of MockState
   /// with the given fields replaced by the non-null parameter values.
@@ -519,14 +544,14 @@ class _$MockStateImpl implements _MockState {
 abstract class _MockState implements MockState {
   const factory _MockState(
       {final Person? person,
-      final bool? isLoading,
+      final MockStatus status,
       final String? error,
       final String? message}) = _$MockStateImpl;
 
   @override
   Person? get person;
   @override
-  bool? get isLoading;
+  MockStatus get status;
   @override
   String? get error;
   @override

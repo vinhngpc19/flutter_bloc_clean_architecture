@@ -1,10 +1,12 @@
 part of 'mock_bloc.dart';
 
+enum MockStatus { initial, loading, success, error }
+
 @freezed
-class MockState with _$MockState {
+sealed class MockState with _$MockState {
   const factory MockState({
     Person? person,
-    @Default(false) bool? isLoading,
+    @Default(MockStatus.initial) MockStatus status,
     @Default(null) String? error,
     @Default(null) String? message,
   }) = _MockState;

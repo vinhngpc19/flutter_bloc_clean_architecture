@@ -1,20 +1,25 @@
 import 'package:flutter/widgets.dart';
+import 'package:forecast/configs/di/di.dart';
 import 'package:forecast/presentation/screens/dashboard/dashboard_page.dart';
 import 'package:forecast/presentation/screens/explore_page.dart';
 import 'package:forecast/presentation/screens/home_page.dart';
-import 'package:forecast/presentation/screens/profile_page.dart';
+import 'package:forecast/presentation/screens/mock/mock_screen.dart';
 import 'package:forecast/presentation/screens/setting_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forecast/presentation/screens/mock/bloc/mock_bloc.dart';
+import 'package:forecast/presentation/screens/profile_page.dart';
 
 class AppRouter {
   AppRouter._();
 
   static const String loginPage = '/login';
   static const String registerPage = '/register';
+  static const String homePage = '/home';
   static const String explorePage = '/explore';
   static const String settingsPage = '/settings';
-  static const String homePage = '/profile';
-  static const String profilePage = '/home';
+  static const String profilePage = '/profile';
+  static const String mockPage = '/mock';
 
   static final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
@@ -58,10 +63,18 @@ class AppRouter {
                 builder: (context, state) => const SettingsPage(),
                 routes: [
                   GoRoute(
-                      path: AppRouter.profilePage,
-                      builder: (context, state) => ProfilePage(
-                            user: state.extra as User,
-                          )),
+                    path: AppRouter.profilePage,
+                    builder: (context, state) => ProfilePage(
+                      user: state.extra as User,
+                    ),
+                  ),
+                  GoRoute(
+                    path: AppRouter.mockPage,
+                    builder: (context, state) => BlocProvider(
+                      create: (context) => DI().getIt<MockBloc>(),
+                      child: const MockScreen(),
+                    ),
+                  ),
                 ],
               ),
             ],
